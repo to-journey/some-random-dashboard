@@ -2,7 +2,9 @@ import React from "react"
 import LoginPage from "./login/page"
 
 const HomePage: React.FC = () => {
-  return <LoginPage />
+  return (
+      <LoginPage />
+  )
 }
 
-export default LoginPage
+export default HomePage
