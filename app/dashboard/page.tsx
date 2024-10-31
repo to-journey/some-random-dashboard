@@ -1,5 +1,5 @@
 import React from "react"
-import UserDataGrid from "./component/UserDataGrid.tsx"
+import UserDataGrid from "../../components/dashboard/UserDataGrid.tsx"
 
 const DashboardPage: React.FC = () => {
   return <UserDataGrid />
