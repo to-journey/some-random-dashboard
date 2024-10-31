@@ -1,44 +1,29 @@
 "use client"
-import React, { FormEvent, useState } from "react"
+import React from "react"
+import { SubmitHandler, useForm } from "react-hook-form"
 import { TextField, Button, Container, Typography } from "@mui/material"
 
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+type Inputs = {
+  email: string
+  password: string
+}
 
 const LoginForm: React.FC = () => {
-  const [email, setEmail] = useState<string>("")
-  const [password, setPassword] = useState<string>("")
-  const [errors, setErrors] = useState<{ email?: string; password?: string }>({})
-  const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  })
 
-  const validateEmail = (value: string) => {
-    if (!value) return "Email is required"
-    if (!emailRegex.test(value)) return "Enter a valid email address"
-    return ""
-  }
+  console.log(errors)
 
-  const validatePassword = (value: string) => {
-    if (!value) return "Password is required"
-    if (value.length < 7) return "Password must be at least 8 characters"
-    return ""
-  }
-
-  const validateInputs = () => {
-    const emailError = validateEmail(email)
-    const passwordError = validatePassword(password)
-
-    setErrors({ email: emailError, password: passwordError })
-  }
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    setIsSubmitted(true)
-    validateInputs()
-
-    if (!errors.email && !errors.password) {
-      // Proceed with login logic if validation passes
-      console.log("Email:", email)
-      console.log("Password:", password)
-    }
+  const onSubmit: SubmitHandler<Inputs> = data => {
+    console.log(data)
   }
 
   return (
@@ -46,46 +31,37 @@ const LoginForm: React.FC = () => {
       <Typography component="h1" variant="h5">
         Sign In
       </Typography>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <TextField
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
           label="Email Address"
-          autoComplete="email"
-          autoFocus
-          value={email}
-          onChange={e => {
-            setEmail(e.target.value)
-            validateInputs()
-          }}
-          error={isSubmitted && !!errors.email}
-          helperText={isSubmitted ? errors.email : ""}
-        />
-        <TextField
           variant="outlined"
           margin="normal"
-          required
           fullWidth
-          label="Password"
-          type="password"
-          autoComplete="current-password"
-          value={password}
-          onChange={e => {
-            setPassword(e.target.value)
-            validateInputs()
-          }}
-          error={isSubmitted && !!errors.password}
-          helperText={isSubmitted ? errors.password : ""}
+          {...register("email", {
+            required: "Email is required",
+            pattern: {
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: "Enter a valid email address",
+            },
+          })}
         />
-        <Button
-          type="submit"
+        <p>{errors.email?.message}</p>
+        <TextField
+          label="Password"
+          variant="outlined"
+          margin="normal"
           fullWidth
-          variant="contained"
-          color="primary"
-          disabled={!!errors.email || !!errors.password}
-        >
+          type="password"
+          {...register("password", {
+            required: "Password is required",
+            minLength: {
+              value: 6,
+              message: "Password must be at least 6 characters",
+            },
+          })}
+        />
+        <p>{errors.password?.message}</p>
+        <Button type="submit" fullWidth variant="contained" color="primary">
           Log In
         </Button>
       </form>
