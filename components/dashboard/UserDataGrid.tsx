@@ -189,6 +189,7 @@ const UserDataGrid: React.FC = () => {
         if (isInEditMode) {
           return [
             <GridActionsCellItem
+              key={`save-${id}`}
               icon={<SaveIcon />}
               label="Save"
               sx={{
@@ -197,6 +198,7 @@ const UserDataGrid: React.FC = () => {
               onClick={handleSaveClick(id)}
             />,
             <GridActionsCellItem
+              key={`cancel-${id}`}
               icon={<CancelIcon />}
               label="Cancel"
               className="textPrimary"
@@ -208,6 +210,7 @@ const UserDataGrid: React.FC = () => {
 
         return [
           <GridActionsCellItem
+            key={`edit-${id}`}
             icon={<EditIcon />}
             label="Edit"
             className="textPrimary"
@@ -215,6 +218,7 @@ const UserDataGrid: React.FC = () => {
             color="inherit"
           />,
           <GridActionsCellItem
+            key={`delete-${id}`}
             icon={<DeleteIcon />}
             label="Delete"
             onClick={handleDeleteClick(id)}
