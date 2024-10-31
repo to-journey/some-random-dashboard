@@ -1,5 +1,6 @@
 "use client"
 import React from "react"
+import { useRouter } from "next/navigation"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { TextField, Button, Container, Typography } from "@mui/material"
 
@@ -9,14 +10,16 @@ type Inputs = {
 }
 
 const LoginForm: React.FC = () => {
+  const router = useRouter()
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>({
     defaultValues: {
-      email: "",
-      password: "",
+      email: "John@yahoo.com",
+      password: "123456",
     },
   })
 
@@ -24,6 +27,7 @@ const LoginForm: React.FC = () => {
 
   const onSubmit: SubmitHandler<Inputs> = data => {
     console.log(data)
+    router.push("/dashboard")
   }
 
   return (
@@ -61,7 +65,12 @@ const LoginForm: React.FC = () => {
           })}
         />
         <p>{errors.password?.message}</p>
-        <Button type="submit" fullWidth variant="contained" color="primary">
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+        >
           Log In
         </Button>
       </form>
