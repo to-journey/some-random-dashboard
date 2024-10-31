@@ -28,7 +28,7 @@ import {
   randomArrayItem,
 } from "@mui/x-data-grid-generator"
 
-const roles = ["Sales", "Finance", "Development"]
+const roles = ["Sales", "Finance", "Development", "Marketing"]
 const randomRole = () => {
   return randomArrayItem(roles)
 }
@@ -96,7 +96,7 @@ function EditToolbar(props: EditToolbarProps) {
   return (
     <GridToolbarContainer>
       <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-        Add record
+        Add user
       </Button>
     </GridToolbarContainer>
   )
@@ -175,7 +175,7 @@ const UserDataGrid: React.FC = () => {
       width: 220,
       editable: true,
       type: "singleSelect",
-      valueOptions: ["Market", "Finance", "Development"],
+      valueOptions: ["Sales", "Finance", "Development", "Marketing"],
     },
     {
       field: "actions",
