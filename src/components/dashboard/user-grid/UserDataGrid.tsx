@@ -72,7 +72,38 @@ export const UserDataGrid = () => {
     handleDeleteClick,
   )
 
-  if (rows.length === 0) {
+  if (rows.length > 0) {
+    return (
+      <Box
+        sx={{
+          height: 500,
+          width: "100%",
+          "& .actions": {
+            color: "text.secondary",
+          },
+          "& .textPrimary": {
+            color: "text.primary",
+          },
+        }}
+      >
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          editMode="row"
+          rowModesModel={rowModesModel}
+          onRowModesModelChange={setRowModesModel}
+          onRowEditStop={handleRowEditStop}
+          processRowUpdate={processRowUpdate}
+          slots={{
+            toolbar: CustomToolbar as React.ComponentType<GridToolbarProps>,
+          }}
+          slotProps={{
+            toolbar: { setRows, setRowModesModel },
+          }}
+        />
+      </Box>
+    )
+  } else {
     return (
       <Box
         sx={{
@@ -85,41 +116,8 @@ export const UserDataGrid = () => {
           borderRadius: 1,
         }}
       >
-        <Typography color="text.secondary">
-          No users found
-        </Typography>
+        <Typography color="text.secondary">No users found</Typography>
       </Box>
-    );
+    )
   }
-
-  return (
-    <Box
-      sx={{
-        height: 500,
-        width: "100%",
-        "& .actions": {
-          color: "text.secondary",
-        },
-        "& .textPrimary": {
-          color: "text.primary",
-        },
-      }}
-    >
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        editMode="row"
-        rowModesModel={rowModesModel}
-        onRowModesModelChange={setRowModesModel}
-        onRowEditStop={handleRowEditStop}
-        processRowUpdate={processRowUpdate}
-        slots={{
-          toolbar: CustomToolbar as React.ComponentType<GridToolbarProps>,
-        }}
-        slotProps={{
-          toolbar: { setRows, setRowModesModel },
-        }}
-      />
-    </Box>
-  )
 }
