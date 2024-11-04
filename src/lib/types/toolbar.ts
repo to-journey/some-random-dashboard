@@ -1,4 +1,4 @@
-import { GridRowModesModel, GridRowModes, GridRowEditStopReasons, GridRowsProp } from "@mui/x-data-grid"
+import { GridRowModesModel, GridRowModes, GridRowEditStopReasons, GridRowsProp, GridToolbarProps } from "@mui/x-data-grid"
 import { User } from "./user"
 
 export type EditToolbarProps = {
@@ -8,7 +8,7 @@ export type EditToolbarProps = {
   ) => void
 }
 
-export type CustomToolbarProps = {
+export interface CustomToolbarProps extends GridToolbarProps {
   setRows: (newRows: (oldRows: User[]) => User[]) => void
   setRowModesModel: (newModel: (oldModel: Record<string, { mode: GridRowModes; fieldToFocus: string }>) => Record<string, { mode: GridRowModes; fieldToFocus: string }>) => void
 }

@@ -7,6 +7,7 @@ import {
   GridRowModes,
   GridRowModesModel,
   GridRowId,
+  GridToolbarProps, GridRowsProp,
 } from "@mui/x-data-grid"
 import { useState } from "react"
 import { User } from "@/lib/types/user"
@@ -90,7 +91,7 @@ export const UserDataGrid = () => {
         onRowEditStop={handleRowEditStop}
         processRowUpdate={processRowUpdate}
         slots={{
-          toolbar: CustomToolbar,
+          toolbar: CustomToolbar as React.ComponentType<GridToolbarProps>,
         }}
         slotProps={{
           toolbar: { setRows, setRowModesModel },
