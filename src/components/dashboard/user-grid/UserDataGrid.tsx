@@ -16,7 +16,7 @@ import {
   GridRowEditStopParams,
   HandleRowEditStopEvent,
 } from "@/lib/types/toolbar"
-import { CustomToolbar } from "./toolbar" // We'll create this component next
+import { CustomToolbar } from "./CustomToolbar" // We'll create this component next
 
 export const UserDataGrid = () => {
   const [rows, setRows] = useState<User[]>(initialUsers)
