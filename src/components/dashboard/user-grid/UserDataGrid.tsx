@@ -10,7 +10,7 @@ import {
   GridToolbarProps,
 } from "@mui/x-data-grid"
 import { User } from "@/lib/types/user"
-import { createColumns } from "./columns"
+import { dataColumns } from "./dataColumns"
 import { initialUsers } from "@/lib/utils/dummy-data"
 import {
   GridRowEditStopParams,
@@ -64,7 +64,7 @@ export const UserDataGrid = () => {
     return updatedRow
   }
 
-  const columns = createColumns(
+  const columns = dataColumns(
     rowModesModel,
     handleSaveClick,
     handleCancelClick,
