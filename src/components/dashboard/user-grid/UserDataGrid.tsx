@@ -26,8 +26,12 @@ export const UserDataGrid = () => {
     params: GridRowEditStopParams,
     event: HandleRowEditStopEvent,
   ) => {
-    if (params.reason === GridRowEditStopReasons.rowFocusOut) {
-      event.defaultMuiPrevented = true
+    try {
+      if (params.reason === GridRowEditStopReasons.rowFocusOut) {
+        event.defaultMuiPrevented = true
+      }
+    } catch (error) {
+      console.error("Error in row edit stop handler:", error)
     }
   }
 
