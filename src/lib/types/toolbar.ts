@@ -14,7 +14,7 @@ export type CustomToolbarProps = {
 }
 
 export type GridRowEditStopParams = {
-  reason: GridRowEditStopReasons;
+  reason: GridRowEditStopReasons | undefined;
 }
 
 export type HandleRowEditStopEvent = {

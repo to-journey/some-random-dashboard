@@ -1,3 +1,4 @@
+import React from "react"
 import {
   GridRowModes,
   GridToolbarContainer,
@@ -12,10 +13,11 @@ import { Department } from "@/lib/types/user"
 import { randomId } from "@mui/x-data-grid-generator"
 import { CustomToolbarProps } from "@/lib/types/toolbar"
 
-export function CustomToolbar({
+export const CustomToolbar: React.FC<CustomToolbarProps> = ({
   setRows,
   setRowModesModel,
-}: CustomToolbarProps) {
+  ...props
+}) => {
   const handleClick = () => {
     const id = randomId()
     setRows(oldRows => [
@@ -36,7 +38,7 @@ export function CustomToolbar({
   }
 
   return (
-    <GridToolbarContainer>
+    <GridToolbarContainer {...props}>
       <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
         Add User
       </Button>
