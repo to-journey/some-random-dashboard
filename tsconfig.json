@@ -2,7 +2,9 @@
   "compilerOptions": {
     "baseUrl": ".",               // This sets the base directory for absolute paths
     "paths": {
-      "@/components/*": ["components/*"]   // Alias for components directory
+      "@/components/*": ["src/components/*"],   // Alias for components directory
+      "@/lib/*": ["src/lib/*"],                 // Alias for lib directory
+      "@/app/*": ["src/app/*"],
     },
     "allowImportingTsExtensions": true,
     "target": "ES2017",

@@ -3,11 +3,7 @@ import React from "react"
 import { useRouter } from "next/navigation"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { TextField, Button, Container, Typography } from "@mui/material"
-
-type Inputs = {
-  email: string
-  password: string
-}
+import { Inputs } from "@/lib/types/loginForm"
 
 const LoginForm: React.FC = () => {
   const router = useRouter()
@@ -23,10 +19,7 @@ const LoginForm: React.FC = () => {
     },
   })
 
-  console.log(errors)
-
-  const onSubmit: SubmitHandler<Inputs> = data => {
-    console.log(data)
+  const onSubmit: SubmitHandler<Inputs> = () => {
     router.push("/dashboard")
   }
 
@@ -65,12 +58,7 @@ const LoginForm: React.FC = () => {
           })}
         />
         <p>{errors.password?.message}</p>
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          color="primary"
-        >
+        <Button type="submit" fullWidth variant="contained" color="primary">
           Log In
         </Button>
       </form>
