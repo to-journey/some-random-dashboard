@@ -1,5 +1,5 @@
 "use client"
-import React from "react"
+import React, { useState } from "react"
 import { Box } from "@mui/material"
 import {
   DataGrid,
@@ -7,9 +7,8 @@ import {
   GridRowModes,
   GridRowModesModel,
   GridRowId,
-  GridToolbarProps, GridRowsProp,
+  GridToolbarProps,
 } from "@mui/x-data-grid"
-import { useState } from "react"
 import { User } from "@/lib/types/user"
 import { createColumns } from "./columns"
 import { initialUsers } from "@/lib/utils/dummy-data"
