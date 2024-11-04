@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from "react"
-import { Box } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 import {
   DataGrid,
   GridRowEditStopReasons,
@@ -71,6 +71,26 @@ export const UserDataGrid = () => {
     handleEditClick,
     handleDeleteClick,
   )
+
+  if (rows.length === 0) {
+    return (
+      <Box
+        sx={{
+          height: 500,
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "background.paper",
+          borderRadius: 1,
+        }}
+      >
+        <Typography color="text.secondary">
+          No users found
+        </Typography>
+      </Box>
+    );
+  }
 
   return (
     <Box
