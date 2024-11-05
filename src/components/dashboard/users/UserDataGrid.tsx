@@ -11,10 +11,8 @@ import {
 } from "@mui/x-data-grid"
 import { User } from "@/lib/types/user"
 import { initialUsers } from "@/lib/constants/dummy-data"
-import {
-  GridRowEditStopParams,
-  HandleRowEditStopEvent,
-} from "@/lib/types/toolbar"
+import { HandleRowEditStopEvent } from "@/lib/types/toolbar"
+import { GridRowEditStopParams } from "@mui/x-data-grid"
 import { DataColumns } from "./DataColumns"
 import { CustomToolbar } from "./CustomToolbar"
 

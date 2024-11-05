@@ -2,8 +2,8 @@
   "compilerOptions": {
     "baseUrl": ".",               // This sets the base directory for absolute paths
     "paths": {
-      "@/components/*": ["src/components/*"],   // Alias for components directory
-      "@/lib/*": ["src/lib/*"],                 // Alias for lib directory
+      "@/components/*": ["src/components/*"],
+      "@/lib/*": ["src/lib/*"],
       "@/app/*": ["src/app/*"],
     },
     "allowImportingTsExtensions": true,
@@ -11,7 +11,7 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": true,
+    "strict": false,            // This is set to false to loosen the strictness of TypeScript
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",

@@ -29,4 +29,4 @@ export type GridRowEditStopParams = {
 
 export type HandleRowEditStopEvent = {
   defaultMuiPrevented: boolean
-}
+} 
