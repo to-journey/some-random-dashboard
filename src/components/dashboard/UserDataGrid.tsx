@@ -10,15 +10,15 @@ import {
   GridToolbarProps,
 } from "@mui/x-data-grid"
 import { User } from "@/lib/types/user"
-import { dataColumns } from "./dataColumns"
-import { initialUsers } from "@/lib/utils/dummy-data"
+import { initialUsers } from "@/lib/constants/dummy-data"
 import {
   GridRowEditStopParams,
   HandleRowEditStopEvent,
 } from "@/lib/types/toolbar"
+import { DataColumns } from "./DataColumns"
 import { CustomToolbar } from "./CustomToolbar"
 
-export const UserDataGrid = () => {
+const UserDataGrid: React.FC = () => {
   const [rows, setRows] = useState<User[]>(initialUsers)
   const [rowModesModel, setRowModesModel] = useState<GridRowModesModel>({})
 
@@ -64,7 +64,7 @@ export const UserDataGrid = () => {
     return updatedRow
   }
 
-  const columns = dataColumns(
+  const columns = DataColumns(
     rowModesModel,
     handleSaveClick,
     handleCancelClick,
@@ -121,3 +121,5 @@ export const UserDataGrid = () => {
     )
   }
 }
+
+export default UserDataGrid

@@ -13,7 +13,7 @@ import {
 } from "@mui/icons-material"
 import { DEPARTMENTS, COLUMN_CONFIG } from "@/lib/constants/dashboard"
 
-export const dataColumns = (
+export const DataColumns = (
   rowModesModel: GridRowModesModel,
   handleSaveClick: (id: GridRowId) => () => void,
   handleCancelClick: (id: GridRowId) => () => void,
