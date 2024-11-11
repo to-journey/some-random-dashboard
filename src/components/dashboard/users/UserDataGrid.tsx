@@ -10,7 +10,7 @@ import {
   GridToolbarProps,
 } from "@mui/x-data-grid"
 import { User } from "@/lib/types/user"
-import { initialUsers } from "@/lib/constants/dummy-data"
+import { initialUsers } from "@/lib/constants/dummyData"
 import { HandleRowEditStopEvent } from "@/lib/types/toolbar"
 import { GridRowEditStopParams } from "@mui/x-data-grid"
 import { DataColumns } from "./DataColumns"
@@ -114,7 +114,7 @@ const UserDataGrid: React.FC = () => {
           borderRadius: 1,
         }}
       >
-        <Typography color="text.secondary">No users found</Typography>
+        {/* <Typography color="text.secondary">No users found</Typography> */}
       </Box>
     )
   }

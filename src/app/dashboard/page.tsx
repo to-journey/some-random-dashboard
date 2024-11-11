@@ -1,10 +1,10 @@
+"use client"
 import React from "react"
-import { DashboardLayout } from "@/components/index"
+import { Box } from "@mui/system"
+import { SidebarContent, UserDataGrid } from "@/components/index"
 
 const DashboardPage: React.FC = () => {
-  return (
-    <DashboardLayout />
-  )
+  return <UserDataGrid />
 }
 
 export default DashboardPage
