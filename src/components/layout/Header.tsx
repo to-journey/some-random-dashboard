@@ -30,6 +30,15 @@ const Header: React.FC = () => {
 
             <Button
               onClick={() => {
+                router.push("/charts")
+              }}
+              color="inherit"
+            >
+              Charts
+            </Button>
+
+            <Button
+              onClick={() => {
                 router.push("/")
               }}
               color="inherit"

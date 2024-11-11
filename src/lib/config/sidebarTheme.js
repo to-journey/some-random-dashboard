@@ -2,9 +2,6 @@
 import { createTheme } from "@mui/material/styles"
 
 const sidebarTheme = createTheme({
-  cssVariables: {
-    colorSchemeSelector: "data-toolpad-color-scheme",
-  },
   colorSchemes: { light: true },
   breakpoints: {
     values: {

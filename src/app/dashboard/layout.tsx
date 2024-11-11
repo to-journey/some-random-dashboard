@@ -1,4 +1,3 @@
-"use client"
 import React from "react"
 import { AppProvider } from "@toolpad/core/nextjs"
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter"
@@ -11,9 +10,10 @@ export default function DashboardPagesLayout({ children }): React.ReactNode {
     <AppRouterCacheProvider options={{ enableCssLayer: true }}>
       <AppProvider
         navigation={NAVIGATION}
+        branding={{ title: "", logo: "" }}
         theme={sidebarTheme}
       >
-        <DashboardLayout>
+        <DashboardLayout sx={{ overflow: "auto", width: "100%" }}>
             {children}
         </DashboardLayout>
       </AppProvider>
