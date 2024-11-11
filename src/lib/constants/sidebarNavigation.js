@@ -9,6 +9,7 @@ const NAVIGATION = [
   {
     segment: "dashboard",
     title: "User Dashboard",
+    icon: <DashboardIcon />,
   },
   {
     segment: "dashboard",
@@ -27,18 +28,18 @@ const NAVIGATION = [
     ],
   },
   {
-    segment: "reports",
+    segment: "dashboard",
     title: "Menu 2",
     children: [
       {
         segment: "chart",
         title: "Chart title",
-        icon: <DescriptionIcon />,
+        icon: <BarChartIcon />,
       },
       {
         segment: "stats",
         title: "Stats title",
-        icon: <DescriptionIcon />,
+        icon: <BarChartIcon />,
       },
     ],
   },

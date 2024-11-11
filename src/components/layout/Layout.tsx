@@ -8,7 +8,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <>
       <Header />
       <div className="min-h-screen flex flex-col justify-between">
-        <main className="container m-auto">
+        <main className=" max-w-[1536px] container m-auto">
           {children}
         </main>
         <Footer />
