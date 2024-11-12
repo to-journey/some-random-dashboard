@@ -1,4 +1,5 @@
 import React from "react"
+import { useRouter } from "next/navigation"
 import {
   GridRowModes,
   GridToolbarContainer,
@@ -18,23 +19,26 @@ export const CustomToolbar: React.FC<CustomToolbarProps> = ({
   setRowModesModel,
   ...props
 }) => {
+  const router = useRouter()
+
   const handleClick = () => {
-    const id = randomId()
-    setRows(oldRows => [
-      ...oldRows,
-      {
-        id,
-        name: "",
-        age: null,
-        joinDate: new Date(),
-        role: "" as Department,
-        isNew: true,
-      },
-    ])
-    setRowModesModel(oldModel => ({
-      ...oldModel,
-      [id]: { mode: GridRowModes.Edit, fieldToFocus: "name" },
-    }))
+    // const id = randomId()
+    // setRows(oldRows => [
+    //   ...oldRows,
+    //   {
+    //     id,
+    //     name: "",
+    //     age: null,
+    //     joinDate: new Date(),
+    //     role: "" as Department,
+    //     isNew: true,
+    //   },
+    // ])
+    // setRowModesModel(oldModel => ({
+    //   ...oldModel,
+    //   [id]: { mode: GridRowModes.Edit, fieldToFocus: "name" },
+    // }))
+    router.push("/create-user")
   }
 
   return (
