@@ -17,12 +17,12 @@ const NAVIGATION = [
     children: [
       {
         segment: "sales",
-        title: "Sales title",
+        title: "Sales",
         icon: <DescriptionIcon />,
       },
       {
         segment: "traffic",
-        title: "Traffic title",
+        title: "Traffic",
         icon: <DescriptionIcon />,
       },
     ],
@@ -34,12 +34,12 @@ const NAVIGATION = [
     children: [
       {
         segment: "chart",
-        title: "Chart title",
+        title: "Chart",
         icon: <BarChartIcon />,
       },
       {
         segment: "stats",
-        title: "Stats title",
+        title: "Stats",
         icon: <BarChartIcon />,
       },
     ],

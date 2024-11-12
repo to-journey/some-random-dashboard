@@ -6,8 +6,10 @@ import { PieChart } from "@mui/x-charts/PieChart"
 function Charts() {
   return (
     <div className="flex flex-col space-between justify-center m-auto">
-      <h1 className="text-4xl text-black-600 justify-center m-auto pt-2">Charts</h1>
+      <h1 className="text-3xl text-gray-700 justify-center m-auto pt-2">Charts</h1>
       <div className="flex flex-col items-center gap-8 m-auto min-w-full md:flex-row">
+
+        {/* Bar chart */}
         <BarChart
           xAxis={[
             { scaleType: "band", data: ["group A", "group B", "group C"] },
@@ -21,6 +23,7 @@ function Charts() {
           height={300}
         />
 
+        {/* Pie chart */}
         <PieChart
           series={[
             {
@@ -36,7 +39,8 @@ function Charts() {
         />
       </div>
 
-      <div className="flex m-auto min-w-full">
+      <div className="flex m-auto">
+        {/* Line chart */}
         <LineChart
           xAxis={[{ data: [1, 2, 3, 5, 8, 10] }]}
           series={[

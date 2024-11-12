@@ -15,6 +15,7 @@ import { HandleRowEditStopEvent } from "@/lib/types/toolbar"
 import { GridRowEditStopParams } from "@mui/x-data-grid"
 import { DataColumns } from "./DataColumns"
 import { CustomToolbar } from "./CustomToolbar"
+import Typography from "@mui/material/Typography"
 
 const UserDataGrid: React.FC = () => {
   const [rows, setRows] = useState<User[]>(initialUsers)
@@ -114,7 +115,7 @@ const UserDataGrid: React.FC = () => {
           borderRadius: 1,
         }}
       >
-        {/* <Typography color="text.secondary">No users found</Typography> */}
+        <Typography color="text.secondary">No users found</Typography>
       </Box>
     )
   }

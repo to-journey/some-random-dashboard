@@ -5,11 +5,11 @@ const COLUMN_CONFIG = {
   },
   NAME: {
     flex: 1,
-    minWidth: 180,
+    minWidth: 140,
   },
   AGE: {
     flex: 0.5,
-    minWidth: 140,
+    minWidth: 80,
   },
   JOIN_DATE: {
     flex: 1,
