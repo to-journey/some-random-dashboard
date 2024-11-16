@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from "react"
-import { Box, Typography } from "@mui/material"
+import { Box } from "@mui/material"
 import {
   DataGrid,
   GridRowEditStopReasons,
@@ -10,13 +10,12 @@ import {
   GridToolbarProps,
 } from "@mui/x-data-grid"
 import { User } from "@/lib/types/user"
-import { initialUsers } from "@/lib/constants/dummy-data"
-import {
-  GridRowEditStopParams,
-  HandleRowEditStopEvent,
-} from "@/lib/types/toolbar"
+import { initialUsers } from "@/lib/constants/dummyData"
+import { HandleRowEditStopEvent } from "@/lib/types/toolbar"
+import { GridRowEditStopParams } from "@mui/x-data-grid"
 import { DataColumns } from "./DataColumns"
 import { CustomToolbar } from "./CustomToolbar"
+import Typography from "@mui/material/Typography"
 
 const UserDataGrid: React.FC = () => {
   const [rows, setRows] = useState<User[]>(initialUsers)

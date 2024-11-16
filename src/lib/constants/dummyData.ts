@@ -1,5 +1,5 @@
 import { User } from "@/lib/types/user"
-import { DEPARTMENTS } from "@/lib/constants/dashboard"
+import { DEPARTMENTS } from "@/lib/constants/userData"
 
 export const initialUsers: User[] = [
   {

@@ -11,7 +11,8 @@ import {
   Save as SaveIcon,
   Cancel as CancelIcon,
 } from "@mui/icons-material"
-import { DEPARTMENTS, COLUMN_CONFIG } from "@/lib/constants/dashboard"
+import { DEPARTMENTS } from "@/lib/constants/userData"
+import { COLUMN_CONFIG } from "@/lib/config/userGridColumns"
 
 export const DataColumns = (
   rowModesModel: GridRowModesModel,
