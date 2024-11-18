@@ -14,6 +14,10 @@ import {
   FormGroup,
   FormControlLabel,
   FormLabel,
+  Radio,
+  RadioGroup,
+  Switch,
+  Rating,
 } from "@mui/material"
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
@@ -30,14 +34,18 @@ const CreateUser = () => {
     occupation: "",
     gender: "",
     dateOfBirth: "",
-    maritalStatus: "",
     contactMethod: [],
+    maritalStatus: "",
+    newsletterSubscription: null,
+    rating: null,
   })
 
   // Refs for checkboxes
   const smsRef = useRef()
   const emailRef = useRef()
   const phoneRef = useRef()
+  const newsletterRef = useRef()
+  const ratingRef = useRef()
 
   const handleSubmit = event => {
     event.preventDefault()
@@ -49,24 +57,25 @@ const CreateUser = () => {
       email: formElements.email.value,
       occupation: formElements.occupation.value,
       gender: formElements.gender.value,
-      dateOfBirth: dayjs(formElements.dateOfBirth.value),
+      dateOfBirth: dayjs(formElements.dateOfBirth.value).format("DD/MM/YYYY"),
       contactMethod: [],
+      maritalStatus: formElements.maritalStatus.value,
+      newsletterSubscription: newsletterRef.current.checked,
+      rating: Number(formElements.rating.value),
     }
 
-    // Check the state of each checkbox and add to contactMethod if checked
     if (smsRef.current.checked) submittedData.contactMethod.push("SMS")
     if (emailRef.current.checked) submittedData.contactMethod.push("Email")
     if (phoneRef.current.checked) submittedData.contactMethod.push("Phone")
 
     setFormData(submittedData)
-    // console.log("Form submitted:", submittedData)
     // router.push("/dashboard")
   }
 
-  // Keep useEffect for debugging purposes
+  // useEffect for debugging
   React.useEffect(() => {
     console.log("Updated formData state:", formData)
-    console.log(formData.contactMethod)
+    // console.log(formData.dateOfBirth)
   }, [formData])
 
   return (
@@ -163,6 +172,7 @@ const CreateUser = () => {
               slotProps={{
                 textField: {
                   name: "dateOfBirth",
+                  required: true,
                 },
               }}
             />
@@ -177,16 +187,66 @@ const CreateUser = () => {
           <FormGroup>
             <FormLabel component="legend">Contact Method</FormLabel>
             <FormControlLabel
-              control={<Checkbox inputRef={smsRef} />} // Use ref for SMS checkbox
+              control={<Checkbox inputRef={smsRef} />}
               label="SMS"
             />
             <FormControlLabel
-              control={<Checkbox inputRef={emailRef} />} // Use ref for Email checkbox
+              control={<Checkbox inputRef={emailRef} />}
               label="Email"
             />
             <FormControlLabel
-              control={<Checkbox inputRef={phoneRef} />} // Use ref for Phone checkbox
+              control={<Checkbox inputRef={phoneRef} />}
               label="Phone"
+            />
+          </FormGroup>
+        </div>
+
+        {/*Radio buttons*/}
+        <FormControl>
+          <FormLabel>Marital status</FormLabel>
+          <RadioGroup defaultValue="Single" name="maritalStatus">
+            <FormControlLabel
+              value="single"
+              control={<Radio />}
+              label="Single"
+            />
+            <FormControlLabel
+              value="married"
+              control={<Radio />}
+              label="Married"
+            />
+            <FormControlLabel
+              value="divorced"
+              control={<Radio />}
+              label="Divorced"
+            />
+          </RadioGroup>
+        </FormControl>
+
+        <div className="flex flex-col items-center justify-between gap-4">
+          {/*Rating*/}
+          <div className="flex flex-col items-cente">
+            <FormLabel>Rate your experience</FormLabel>
+            <Rating name="rating" defaultValue={0} precision={1} size="large" />
+          </div>
+
+          {/*Toggle switch*/}
+          <FormGroup>
+            <FormControlLabel
+              control={
+                <Switch
+                  defaultChecked
+                  inputRef={newsletterRef}
+                  name="newsletterSubscription"
+                />
+              }
+              label="Subscribe to newsletter"
+              labelPlacement="top"
+              sx={{
+                "& .MuiFormControlLabel-label": {
+                  color: "grey.700", // You can adjust the shade of grey as needed
+                },
+              }}
             />
           </FormGroup>
         </div>
