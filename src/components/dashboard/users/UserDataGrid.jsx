@@ -5,26 +5,16 @@ import {
   DataGrid,
   GridRowEditStopReasons,
   GridRowModes,
-  GridRowModesModel,
-  GridRowId,
-  GridToolbarProps,
 } from "@mui/x-data-grid"
-import { User } from "@/lib/types/user"
-import { initialUsers } from "@/lib/constants/dummyData"
-import { HandleRowEditStopEvent } from "@/lib/types/toolbar"
-import { GridRowEditStopParams } from "@mui/x-data-grid"
-import { DataColumns } from "./DataColumns"
-import { CustomToolbar } from "./CustomToolbar"
+import { DataColumns } from "./DataColumns.jsx"
+import { CustomToolbar } from "./CustomToolbar.jsx"
 import Typography from "@mui/material/Typography"
+import { INITIAL_USERS } from "@/lib/utils/utils.js"
 
-const UserDataGrid: React.FC = () => {
-  const [rows, setRows] = useState<User[]>(initialUsers)
-  const [rowModesModel, setRowModesModel] = useState<GridRowModesModel>({})
-
-  const handleRowEditStop = (
-    params: GridRowEditStopParams,
-    event: HandleRowEditStopEvent,
-  ) => {
+const UserDataGrid = () => {
+  const [rows, setRows] = useState(INITIAL_USERS)
+  const [rowModesModel, setRowModesModel] = useState({})
+  const handleRowEditStop = (params, event) => {
     try {
       if (params.reason === GridRowEditStopReasons.rowFocusOut) {
         event.defaultMuiPrevented = true
@@ -34,19 +24,19 @@ const UserDataGrid: React.FC = () => {
     }
   }
 
-  const handleEditClick = (id: GridRowId) => () => {
+  const handleEditClick = (id) => () => {
     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } })
   }
 
-  const handleSaveClick = (id: GridRowId) => () => {
+  const handleSaveClick = (id) => () => {
     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } })
   }
 
-  const handleDeleteClick = (id: GridRowId) => () => {
+  const handleDeleteClick = (id) => () => {
     setRows(rows.filter(row => row.id !== id))
   }
 
-  const handleCancelClick = (id: GridRowId) => () => {
+  const handleCancelClick = (id) => () => {
     setRowModesModel({
       ...rowModesModel,
       [id]: { mode: GridRowModes.View, ignoreModifications: true },
@@ -57,7 +47,7 @@ const UserDataGrid: React.FC = () => {
     }
   }
 
-  const processRowUpdate = (newRow: User) => {
+  const processRowUpdate = (newRow) => {
     const updatedRow = { ...newRow, isNew: false }
     setRows(rows.map(row => (row.id === newRow.id ? updatedRow : row)))
     return updatedRow
@@ -94,10 +84,7 @@ const UserDataGrid: React.FC = () => {
           onRowEditStop={handleRowEditStop}
           processRowUpdate={processRowUpdate}
           slots={{
-            toolbar: CustomToolbar as React.ComponentType<GridToolbarProps>,
-          }}
-          slotProps={{
-            toolbar: { setRows, setRowModesModel },
+            toolbar: CustomToolbar,
           }}
         />
       </Box>

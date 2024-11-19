@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useRef } from "react"
+import React, { useState } from "react"
 import { useRouter } from "next/navigation"
 import {
   Box,
@@ -18,65 +18,91 @@ import {
   RadioGroup,
   Switch,
   Rating,
+  ButtonGroup,
 } from "@mui/material"
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
 import { DatePicker } from "@mui/x-date-pickers/DatePicker"
 import dayjs from "dayjs"
 
+const initialFormState = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  occupation: "",
+  gender: "",
+  dateOfBirth: null,
+  contactMethod: {
+    sms: false,
+    email: false,
+    phone: false
+  },
+  maritalStatus: "single",
+  newsletterSubscription: true,
+  rating: 0
+}
+
 const CreateUser = () => {
   const router = useRouter()
+  const [formData, setFormData] = useState(initialFormState)
 
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    occupation: "",
-    gender: "",
-    dateOfBirth: "",
-    contactMethod: [],
-    maritalStatus: "",
-    newsletterSubscription: null,
-    rating: null,
-  })
-
-  // Refs for checkboxes
-  const smsRef = useRef()
-  const emailRef = useRef()
-  const phoneRef = useRef()
-  const newsletterRef = useRef()
-  const ratingRef = useRef()
-
-  const handleSubmit = event => {
-    event.preventDefault()
-    const formElements = event.target.elements
-
-    const submittedData = {
-      firstName: formElements.firstName.value,
-      lastName: formElements.lastName.value,
-      email: formElements.email.value,
-      occupation: formElements.occupation.value,
-      gender: formElements.gender.value,
-      dateOfBirth: dayjs(formElements.dateOfBirth.value).format("DD/MM/YYYY"),
-      contactMethod: [],
-      maritalStatus: formElements.maritalStatus.value,
-      newsletterSubscription: newsletterRef.current.checked,
-      rating: Number(formElements.rating.value),
-    }
-
-    if (smsRef.current.checked) submittedData.contactMethod.push("SMS")
-    if (emailRef.current.checked) submittedData.contactMethod.push("Email")
-    if (phoneRef.current.checked) submittedData.contactMethod.push("Phone")
-
-    setFormData(submittedData)
-    // router.push("/dashboard")
+  const handleInputChange = (event) => {
+    const { name, value } = event.target
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }))
   }
 
-  // useEffect for debugging
-  React.useEffect(() => {
-    console.log("Updated formData state:", formData)
-    // console.log(formData.dateOfBirth)
-  }, [formData])
+  const handleContactMethodChange = (method) => (event) => {
+    setFormData(prev => ({
+      ...prev,
+      contactMethod: {
+        ...prev.contactMethod,
+        [method]: event.target.checked
+      }
+    }))
+  }
+
+  const handleDateChange = (value) => {
+    setFormData(prev => ({
+      ...prev,
+      dateOfBirth: value
+    }))
+  }
+
+  const handleNewsletterChange = (event) => {
+    setFormData(prev => ({
+      ...prev,
+      newsletterSubscription: event.target.checked
+    }))
+  }
+
+  const handleRatingChange = (event, value) => {
+    setFormData(prev => ({
+      ...prev,
+      rating: value
+    }))
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+
+    const submittedData = {
+      ...formData,
+      dateOfBirth: formData.dateOfBirth ? dayjs(formData.dateOfBirth).format("DD/MM/YYYY") : "",
+      contactMethod: Object.entries(formData.contactMethod)
+      .filter(([, checked]) => checked)
+      .map(([method]) => method.toUpperCase())
+    }
+
+    console.log("Submitted data:", submittedData)
+  }
+
+  const handleResetForm = (event) => {
+    event.preventDefault()
+    setFormData(initialFormState)
+  }
 
   return (
     <Box
@@ -84,15 +110,19 @@ const CreateUser = () => {
       autoComplete="off"
       onSubmit={handleSubmit}
       sx={{
-        maxWidth: 800,
+        maxWidth: 1000,
         mx: "auto",
         p: 2,
+        display: "flex",
+        flexDirection: "column",
+        gap: 3,
       }}
     >
       <Typography
-        className="flex items-center justify-center"
+        className="flex items-center justify-center text-2xl font-bold"
         component="h1"
         variant="h6"
+        color="primary"
       >
         Create new user form
       </Typography>
@@ -106,6 +136,8 @@ const CreateUser = () => {
           margin="normal"
           required
           fullWidth
+          value={formData.firstName}
+          onChange={handleInputChange}
         />
 
         <TextField
@@ -115,6 +147,8 @@ const CreateUser = () => {
           margin="normal"
           required
           fullWidth
+          value={formData.lastName}
+          onChange={handleInputChange}
         />
 
         <TextField
@@ -124,6 +158,8 @@ const CreateUser = () => {
           margin="normal"
           required
           fullWidth
+          value={formData.email}
+          onChange={handleInputChange}
         />
       </div>
 
@@ -136,6 +172,8 @@ const CreateUser = () => {
             variant="outlined"
             margin="normal"
             fullWidth
+            value={formData.occupation}
+            onChange={handleInputChange}
           />
         </div>
 
@@ -149,7 +187,8 @@ const CreateUser = () => {
               id="gender-select"
               label="Gender"
               variant="outlined"
-              defaultValue=""
+              value={formData.gender}
+              onChange={handleInputChange}
             >
               <MenuItem value={"male"}>Male</MenuItem>
               <MenuItem value={"female"}>Female</MenuItem>
@@ -161,9 +200,9 @@ const CreateUser = () => {
         <div className="flex-1">
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
-              name="dateOfBirth"
               label="Birth Date"
-              fullWidth
+              value={formData.dateOfBirth}
+              onChange={handleDateChange}
               sx={{
                 width: "100%",
                 mt: 2,
@@ -171,7 +210,6 @@ const CreateUser = () => {
               }}
               slotProps={{
                 textField: {
-                  name: "dateOfBirth",
                   required: true,
                 },
               }}
@@ -187,15 +225,30 @@ const CreateUser = () => {
           <FormGroup>
             <FormLabel component="legend">Contact Method</FormLabel>
             <FormControlLabel
-              control={<Checkbox inputRef={smsRef} />}
+              control={
+                <Checkbox
+                  checked={formData.contactMethod.sms}
+                  onChange={handleContactMethodChange('sms')}
+                />
+              }
               label="SMS"
             />
             <FormControlLabel
-              control={<Checkbox inputRef={emailRef} />}
+              control={
+                <Checkbox
+                  checked={formData.contactMethod.email}
+                  onChange={handleContactMethodChange('email')}
+                />
+              }
               label="Email"
             />
             <FormControlLabel
-              control={<Checkbox inputRef={phoneRef} />}
+              control={
+                <Checkbox
+                  checked={formData.contactMethod.phone}
+                  onChange={handleContactMethodChange('phone')}
+                />
+              }
               label="Phone"
             />
           </FormGroup>
@@ -204,7 +257,11 @@ const CreateUser = () => {
         {/*Radio buttons*/}
         <FormControl>
           <FormLabel>Marital status</FormLabel>
-          <RadioGroup defaultValue="Single" name="maritalStatus">
+          <RadioGroup
+            name="maritalStatus"
+            value={formData.maritalStatus}
+            onChange={handleInputChange}
+          >
             <FormControlLabel
               value="single"
               control={<Radio />}
@@ -223,11 +280,17 @@ const CreateUser = () => {
           </RadioGroup>
         </FormControl>
 
-        <div className="flex flex-col items-center justify-between gap-4">
+        <div className="flex flex-col items-center justify-between gap-10">
           {/*Rating*/}
-          <div className="flex flex-col items-cente">
+          <div className="flex flex-col items-center">
             <FormLabel>Rate your experience</FormLabel>
-            <Rating name="rating" defaultValue={0} precision={1} size="large" />
+            <Rating
+              name="rating"
+              value={formData.rating}
+              onChange={handleRatingChange}
+              precision={1}
+              size="large"
+            />
           </div>
 
           {/*Toggle switch*/}
@@ -235,8 +298,8 @@ const CreateUser = () => {
             <FormControlLabel
               control={
                 <Switch
-                  defaultChecked
-                  inputRef={newsletterRef}
+                  checked={formData.newsletterSubscription}
+                  onChange={handleNewsletterChange}
                   name="newsletterSubscription"
                 />
               }
@@ -244,7 +307,7 @@ const CreateUser = () => {
               labelPlacement="top"
               sx={{
                 "& .MuiFormControlLabel-label": {
-                  color: "grey.700", // You can adjust the shade of grey as needed
+                  color: "grey.700",
                 },
               }}
             />
@@ -252,9 +315,21 @@ const CreateUser = () => {
         </div>
       </div>
 
-      <Button type="submit" fullWidth variant="contained" color="primary">
-        Create user
-      </Button>
+      {/*Fourth row*/}
+      {/*Navigation buttons*/}
+      <div className="flex items-center justify-center gap-4 mt-4">
+        <ButtonGroup variant="contained" color="primary">
+          <Button
+            onClick={() => {
+              router.push("/dashboard")
+            }}
+          >
+            Back
+          </Button>
+          <Button onClick={handleResetForm}>Clear</Button>
+          <Button type="submit">Submit</Button>
+        </ButtonGroup>
+      </div>
     </Box>
   )
 }

@@ -1,7 +1,6 @@
 import React from "react"
 import { useRouter } from "next/navigation"
 import {
-  GridRowModes,
   GridToolbarContainer,
   GridToolbarColumnsButton,
   GridToolbarFilterButton,
@@ -10,34 +9,11 @@ import {
 } from "@mui/x-data-grid"
 import { Button } from "@mui/material"
 import AddIcon from "@mui/icons-material/Add"
-import { Department } from "@/lib/types/user"
-import { randomId } from "@mui/x-data-grid-generator"
-import { CustomToolbarProps } from "@/lib/types/toolbar"
 
-export const CustomToolbar: React.FC<CustomToolbarProps> = ({
-  setRows,
-  setRowModesModel,
-  ...props
-}) => {
+export const CustomToolbar = ({ ...props }) => {
   const router = useRouter()
 
   const handleClick = () => {
-    // const id = randomId()
-    // setRows(oldRows => [
-    //   ...oldRows,
-    //   {
-    //     id,
-    //     name: "",
-    //     age: null,
-    //     joinDate: new Date(),
-    //     role: "" as Department,
-    //     isNew: true,
-    //   },
-    // ])
-    // setRowModesModel(oldModel => ({
-    //   ...oldModel,
-    //   [id]: { mode: GridRowModes.Edit, fieldToFocus: "name" },
-    // }))
     router.push("/create-user")
   }
 
