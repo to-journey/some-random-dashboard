@@ -1,75 +1,106 @@
-import {
-  GridColDef,
-  GridActionsCellItem,
-  GridRowModesModel,
-  GridRowId,
-  GridRowModes,
-} from "@mui/x-data-grid"
+import { GridRowModes, GridActionsCellItem } from "@mui/x-data-grid"
 import {
   Edit as EditIcon,
   Delete as DeleteIcon,
   Save as SaveIcon,
   Cancel as CancelIcon,
 } from "@mui/icons-material"
-import { DEPARTMENTS } from "@/lib/constants/userData"
-import { COLUMN_CONFIG } from "@/lib/config/userGridColumns"
 
 export const DataColumns = (
-  rowModesModel: GridRowModesModel,
-  handleSaveClick: (id: GridRowId) => () => void,
-  handleCancelClick: (id: GridRowId) => () => void,
-  handleEditClick: (id: GridRowId) => () => void,
-  handleDeleteClick: (id: GridRowId) => () => void,
-): GridColDef[] => [
+  rowModesModel,
+  handleSaveClick,
+  handleCancelClick,
+  handleEditClick,
+  handleDeleteClick,
+) => [
   {
     field: "id",
     headerName: "ID",
-    flex: COLUMN_CONFIG.ID.flex,
-    minWidth: COLUMN_CONFIG.ID.minWidth,
+    flex: 1,
+    minWidth: 100,
     editable: false,
     align: "left",
     headerAlign: "left",
   },
   {
-    field: "name",
-    headerName: "Name",
-    flex: COLUMN_CONFIG.NAME.flex,
-    minWidth: COLUMN_CONFIG.NAME.minWidth,
+    field: "firstName",
+    headerName: "First Name",
+    flex: 1,
+    minWidth: 100,
     editable: true,
   },
   {
-    field: "age",
-    headerName: "Age",
-    type: "number",
-    flex: COLUMN_CONFIG.AGE.flex,
-    minWidth: COLUMN_CONFIG.AGE.minWidth,
+    field: "lastName",
+    headerName: "Last Name",
+    flex: 1,
+    minWidth: 100,
+    editable: true,
+  },
+  {
+    field: "email",
+    headerName: "Email",
+    flex: 1,
+    minWidth: 100,
+    editable: true,
+  },
+  {
+    field: "occupation",
+    headerName: "Occupation",
+    flex: 1,
+    minWidth: 100,
     align: "left",
     headerAlign: "left",
     editable: true,
   },
   {
-    field: "joinDate",
-    headerName: "Join date",
-    type: "date",
-    flex: COLUMN_CONFIG.JOIN_DATE.flex,
-    minWidth: COLUMN_CONFIG.JOIN_DATE.minWidth,
+    field: "gender",
+    headerName: "Gender",
+    flex: 1,
+    minWidth: 100,
     editable: true,
   },
   {
-    field: "role",
-    headerName: "Department",
-    flex: COLUMN_CONFIG.DEPARTMENT.flex,
-    minWidth: COLUMN_CONFIG.DEPARTMENT.minWidth,
+    field: "dateOfBirth",
+    headerName: "Date of Birth",
+    type: "date",
+    flex: 1,
+    minWidth: 100,
     editable: true,
-    type: "singleSelect",
-    valueOptions: [...DEPARTMENTS],
+  },
+  {
+    field: "contactMethod",
+    headerName: "Contact Method",
+    flex: 1,
+    minWidth: 100,
+    editable: true,
+  },
+  {
+    field: "maritalStatus",
+    headerName: "Marital Status",
+    flex: 1,
+    minWidth: 100,
+    editable: false,
+  },
+  {
+    field: "rating",
+    headerName: "Rating",
+    flex: 1,
+    minWidth: 100,
+    editable: false,
+  },
+  {
+    field: "newsletterSubscription",
+    headerName: "Newsletter Subscription",
+    flex: 1,
+    minWidth: 100,
+    editable: false,
   },
   {
     field: "actions",
     type: "actions",
     headerName: "Actions",
-    flex: COLUMN_CONFIG.ACTIONS.flex,
-    minWidth: COLUMN_CONFIG.ACTIONS.minWidth,
+    flex: 1,
+    minWidth: 50,
     cellClassName: "actions",
     getActions: ({ id }) => {
       const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit
@@ -80,18 +111,17 @@ export const DataColumns = (
             key={`save-${id}`}
             icon={<SaveIcon />}
             label="Save"
-            sx={{
-              color: "primary.main",
-            }}
             onClick={handleSaveClick(id)}
+            color="primary"
+            disabled={false}
           />,
           <GridActionsCellItem
             key={`cancel-${id}`}
             icon={<CancelIcon />}
             label="Cancel"
-            className="textPrimary"
             onClick={handleCancelClick(id)}
             color="inherit"
+            disabled={false}
           />,
         ]
       }
@@ -101,9 +131,9 @@ export const DataColumns = (
           key={`edit-${id}`}
           icon={<EditIcon />}
           label="Edit"
-          className="textPrimary"
           onClick={handleEditClick(id)}
           color="inherit"
+          disabled={false}
         />,
         <GridActionsCellItem
           key={`delete-${id}`}
@@ -111,6 +141,7 @@ export const DataColumns = (
           label="Delete"
           onClick={handleDeleteClick(id)}
           color="inherit"
+          disabled={false}
         />,
       ]
     },
