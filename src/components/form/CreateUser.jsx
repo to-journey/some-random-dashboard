@@ -23,7 +23,6 @@ import {
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
 import { DatePicker } from "@mui/x-date-pickers/DatePicker"
-import dayjs from "dayjs"
 import { UsersContext } from "@/context/UsersContext.js"
 
 const initialFormState = {
@@ -38,7 +37,7 @@ const initialFormState = {
     email: false,
     phone: false,
   },
-  maritalStatus: "single",
+  maritalStatus: "Single",
   newsletterSubscription: true,
   rating: 0,
 }
@@ -94,12 +93,23 @@ const CreateUser = () => {
     const newUser = {
       ...formData,
       id: crypto.randomUUID(),
-      dateOfBirth: formData.dateOfBirth
-        ? formData.dateOfBirth.toDate()
-        : null,
+      dateOfBirth: formData.dateOfBirth ? formData.dateOfBirth.toDate() : null,
       contactMethod: Object.entries(formData.contactMethod)
         .filter(([, checked]) => checked)
-        .map(([method]) => method.toUpperCase()),
+        .map(([method]) => {
+          // Split the method into words
+          return method
+            .split(" ")
+            .map(word => {
+              // Check if the word is "SMS" and return it in uppercase
+              if (word.toUpperCase() === "SMS") {
+                return word.toUpperCase()
+              }
+              // Capitalize the first letter of the word and lowercase the rest
+              return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+            })
+            .join(" ") // Join the words back into a single string
+        }),
     }
 
     usersContext.setUsers([...usersContext.users, newUser])
@@ -271,17 +281,17 @@ const CreateUser = () => {
             onChange={handleInputChange}
           >
             <FormControlLabel
-              value="single"
+              value="Single"
               control={<Radio />}
               label="Single"
             />
             <FormControlLabel
-              value="married"
+              value="Married"
               control={<Radio />}
               label="Married"
             />
             <FormControlLabel
-              value="divorced"
+              value="Divorced"
               control={<Radio />}
               label="Divorced"
             />
