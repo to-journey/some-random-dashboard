@@ -17,9 +17,7 @@ const UserDataGrid = () => {
   const [rowModesModel, setRowModesModel] = useState({})
 
   useEffect(() => {
-    console.log("Previous rows:", rows)
-    console.log("Users context has changed:", users)
-    setRows(users) // Update rows when context changes
+    setRows(users)
   }, [users])
 
   const handleRowEditStop = (params, event) => {
@@ -55,10 +53,9 @@ const UserDataGrid = () => {
     }
   }
 
-  const processRowUpdate = (newRow) => {
-    // Update the context with the new row
-    const updatedUsers = rows.map(row => row.id === newRow.id ? newRow : row)
-    setUsers(updatedUsers) // This will trigger the useEffect above
+  const processRowUpdate = newRow => {
+    const updatedUsers = rows.map(row => (row.id === newRow.id ? newRow : row))
+    setUsers(updatedUsers)
     return newRow
   }
 
@@ -74,8 +71,8 @@ const UserDataGrid = () => {
     return (
       <Box
         sx={{
-          height: 'auto', // Changed from fixed 500px
-          minHeight: 500, // Add this to maintain minimum height
+          height: "auto",
+          minHeight: 500,
           width: "100%",
           "& .actions": {
             color: "text.secondary",

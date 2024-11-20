@@ -6,4 +6,8 @@ const INITIAL_USERS = initialUsersRawData.map(user => ({
   newsletterSubscription: user.newsletterSubscription ? "Subscribed" : "Not Subscribed",
 }))
 
-export { INITIAL_USERS }
+const dateFormatter = (dateOfBirth) => {
+  return new Date(dateOfBirth)
+}
+
+export { INITIAL_USERS, dateFormatter }
