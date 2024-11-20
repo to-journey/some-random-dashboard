@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from "react"
+import React, { useState, useContext, useEffect } from "react"
 import { Box } from "@mui/material"
 import {
   DataGrid,
@@ -9,11 +9,19 @@ import {
 import { DataColumns } from "./DataColumns.jsx"
 import { CustomToolbar } from "./CustomToolbar.jsx"
 import Typography from "@mui/material/Typography"
-import { INITIAL_USERS } from "@/lib/utils/utils.js"
+import { UsersContext } from "@/context/UsersContext.js"
 
 const UserDataGrid = () => {
-  const [rows, setRows] = useState(INITIAL_USERS)
+  const { users, setUsers } = useContext(UsersContext)
+  const [rows, setRows] = useState(users)
   const [rowModesModel, setRowModesModel] = useState({})
+
+  useEffect(() => {
+    console.log("Previous rows:", rows)
+    console.log("Users context has changed:", users)
+    setRows(users) // Update rows when context changes
+  }, [users])
+
   const handleRowEditStop = (params, event) => {
     try {
       if (params.reason === GridRowEditStopReasons.rowFocusOut) {
@@ -24,19 +32,19 @@ const UserDataGrid = () => {
     }
   }
 
-  const handleEditClick = (id) => () => {
+  const handleEditClick = id => () => {
     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } })
   }
 
-  const handleSaveClick = (id) => () => {
+  const handleSaveClick = id => () => {
     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } })
   }
 
-  const handleDeleteClick = (id) => () => {
+  const handleDeleteClick = id => () => {
     setRows(rows.filter(row => row.id !== id))
   }
 
-  const handleCancelClick = (id) => () => {
+  const handleCancelClick = id => () => {
     setRowModesModel({
       ...rowModesModel,
       [id]: { mode: GridRowModes.View, ignoreModifications: true },
@@ -48,9 +56,10 @@ const UserDataGrid = () => {
   }
 
   const processRowUpdate = (newRow) => {
-    const updatedRow = { ...newRow, isNew: false }
-    setRows(rows.map(row => (row.id === newRow.id ? updatedRow : row)))
-    return updatedRow
+    // Update the context with the new row
+    const updatedUsers = rows.map(row => row.id === newRow.id ? newRow : row)
+    setUsers(updatedUsers) // This will trigger the useEffect above
+    return newRow
   }
 
   const columns = DataColumns(
@@ -65,7 +74,8 @@ const UserDataGrid = () => {
     return (
       <Box
         sx={{
-          height: 500,
+          height: 'auto', // Changed from fixed 500px
+          minHeight: 500, // Add this to maintain minimum height
           width: "100%",
           "& .actions": {
             color: "text.secondary",
