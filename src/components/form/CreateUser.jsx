@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import { useRouter } from "next/navigation"
 import {
   Box,
@@ -24,6 +24,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
 import { DatePicker } from "@mui/x-date-pickers/DatePicker"
 import dayjs from "dayjs"
+import { UsersContext } from "@/context/UsersContext.js"
 
 const initialFormState = {
   firstName: "",
@@ -35,71 +36,78 @@ const initialFormState = {
   contactMethod: {
     sms: false,
     email: false,
-    phone: false
+    phone: false,
   },
   maritalStatus: "single",
   newsletterSubscription: true,
-  rating: 0
+  rating: 0,
 }
 
 const CreateUser = () => {
   const router = useRouter()
+
+  const usersContext = useContext(UsersContext)
   const [formData, setFormData] = useState(initialFormState)
 
-  const handleInputChange = (event) => {
+  const handleInputChange = event => {
     const { name, value } = event.target
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }))
   }
 
-  const handleContactMethodChange = (method) => (event) => {
+  const handleContactMethodChange = method => event => {
     setFormData(prev => ({
       ...prev,
       contactMethod: {
         ...prev.contactMethod,
-        [method]: event.target.checked
-      }
+        [method]: event.target.checked,
+      },
     }))
   }
 
-  const handleDateChange = (value) => {
+  const handleDateChange = value => {
     setFormData(prev => ({
       ...prev,
-      dateOfBirth: value
+      dateOfBirth: value,
     }))
   }
 
-  const handleNewsletterChange = (event) => {
+  const handleNewsletterChange = event => {
     setFormData(prev => ({
       ...prev,
-      newsletterSubscription: event.target.checked
+      newsletterSubscription: event.target.checked,
     }))
   }
 
   const handleRatingChange = (event, value) => {
     setFormData(prev => ({
       ...prev,
-      rating: value
+      rating: value,
     }))
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event.preventDefault()
 
-    const submittedData = {
+    const newUser = {
       ...formData,
-      dateOfBirth: formData.dateOfBirth ? dayjs(formData.dateOfBirth).format("DD/MM/YYYY") : "",
+      id: crypto.randomUUID(),
+      dateOfBirth: formData.dateOfBirth
+        ? formData.dateOfBirth.toDate()
+        : null,
       contactMethod: Object.entries(formData.contactMethod)
-      .filter(([, checked]) => checked)
-      .map(([method]) => method.toUpperCase())
+        .filter(([, checked]) => checked)
+        .map(([method]) => method.toUpperCase()),
     }
 
-    console.log("Submitted data:", submittedData)
+    usersContext.setUsers([...usersContext.users, newUser])
+
+    router.push("/dashboard")
   }
 
-  const handleResetForm = (event) => {
+  const handleResetForm = event => {
     event.preventDefault()
     setFormData(initialFormState)
   }
@@ -210,7 +218,7 @@ const CreateUser = () => {
               }}
               slotProps={{
                 textField: {
-                  required: true,
+                  required: false,
                 },
               }}
             />
@@ -228,7 +236,7 @@ const CreateUser = () => {
               control={
                 <Checkbox
                   checked={formData.contactMethod.sms}
-                  onChange={handleContactMethodChange('sms')}
+                  onChange={handleContactMethodChange("sms")}
                 />
               }
               label="SMS"
@@ -237,7 +245,7 @@ const CreateUser = () => {
               control={
                 <Checkbox
                   checked={formData.contactMethod.email}
-                  onChange={handleContactMethodChange('email')}
+                  onChange={handleContactMethodChange("email")}
                 />
               }
               label="Email"
@@ -246,7 +254,7 @@ const CreateUser = () => {
               control={
                 <Checkbox
                   checked={formData.contactMethod.phone}
-                  onChange={handleContactMethodChange('phone')}
+                  onChange={handleContactMethodChange("phone")}
                 />
               }
               label="Phone"
