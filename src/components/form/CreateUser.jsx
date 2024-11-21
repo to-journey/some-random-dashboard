@@ -23,7 +23,8 @@ import {
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
 import { DatePicker } from "@mui/x-date-pickers/DatePicker"
-import { UsersContext } from "@/context/UsersContext.js"
+import { UsersContext } from "@/context/UsersContext"
+import { formatContactMethodOptions } from "@/lib/utils/utils"
 
 const initialFormState = {
   firstName: "",
@@ -95,19 +96,7 @@ const CreateUser = () => {
       id: crypto.randomUUID(),
       newsletterSubscription: formData.newsletterSubscription ? "Subscribed" : "Not Subscribed",
       dateOfBirth: formData.dateOfBirth ? formData.dateOfBirth.toDate() : null,
-      contactMethod: Object.entries(formData.contactMethod)
-        .filter(([, checked]) => checked)
-        .map(([method]) => {
-          return method
-            .split(" ")
-            .map(word => {
-              if (word.toUpperCase() === "SMS") {
-                return word.toUpperCase()
-              }
-              return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-            })
-            .join(" ")
-        }),
+      contactMethod: formatContactMethodOptions(Object.entries(formData.contactMethod))
     }
 
     usersContext.setUsers([...usersContext.users, newUser])
@@ -143,7 +132,7 @@ const CreateUser = () => {
         Create new user form
       </Typography>
 
-      {/*First row*/}
+      {/*First row of inputs*/}
       <div className="flex items-center justify-between gap-4">
         <TextField
           name="firstName"
@@ -179,7 +168,7 @@ const CreateUser = () => {
         />
       </div>
 
-      {/*Second row*/}
+      {/*Second row of inputs*/}
       <div className="flex items-center justify-between gap-4">
         <div className="flex-1">
           <TextField
@@ -234,7 +223,7 @@ const CreateUser = () => {
         </div>
       </div>
 
-      {/*Third row*/}
+      {/*Third row of inputs*/}
       <div className="flex items-center justify-between gap-4">
         {/*Check box*/}
         <div>
@@ -331,7 +320,7 @@ const CreateUser = () => {
         </div>
       </div>
 
-      {/*Fourth row*/}
+      {/*Fourth row of inputs*/}
       {/*Navigation buttons*/}
       <div className="flex items-center justify-center gap-4 mt-4">
         <ButtonGroup variant="contained" color="primary">
