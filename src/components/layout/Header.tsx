@@ -30,7 +30,7 @@ const Header: React.FC = () => {
 
             <Button
               onClick={() => {
-                router.push("/dashboard")
+                router.push("/dashboard/users")
               }}
               color="inherit"
             >
