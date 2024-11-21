@@ -73,7 +73,7 @@ const UserDataGrid = () => {
         sx={{
           height: "auto",
           minHeight: 500,
-          width: "100%",
+          width: "98%",
           "& .actions": {
             color: "text.secondary",
           },

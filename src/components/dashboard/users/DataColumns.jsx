@@ -26,14 +26,14 @@ export const DataColumns = (
     field: "firstName",
     headerName: "First Name",
     flex: 1,
-    minWidth: 100,
+    minWidth: 80,
     editable: true,
   },
   {
     field: "lastName",
     headerName: "Last Name",
     flex: 1,
-    minWidth: 100,
+    minWidth: 80,
     editable: true,
   },
   {
@@ -47,7 +47,7 @@ export const DataColumns = (
     field: "occupation",
     headerName: "Occupation",
     flex: 1,
-    minWidth: 100,
+    minWidth: 150,
     align: "left",
     headerAlign: "left",
     editable: true,
@@ -56,7 +56,7 @@ export const DataColumns = (
     field: "gender",
     headerName: "Gender",
     flex: 1,
-    minWidth: 100,
+    minWidth: 80,
     editable: true,
   },
   {
@@ -85,7 +85,7 @@ export const DataColumns = (
     field: "rating",
     headerName: "Rating",
     flex: 1,
-    minWidth: 100,
+    minWidth: 50,
     editable: false,
   },
   {
