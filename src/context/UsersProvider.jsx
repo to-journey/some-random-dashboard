@@ -1,10 +1,10 @@
 "use client"
 import React, { useState } from "react"
 import { UsersContext } from "./UsersContext"
-import { INITIAL_USERS } from "@/lib/utils/utils"
+import { formattedUsersData } from "@/lib/utils/utils"
 
 const UsersProvider = ({ children }) => {
-  const [users, setUsers] = useState(INITIAL_USERS)
+  const [users, setUsers] = useState(formattedUsersData)
   const value = {
     users,
     setUsers,

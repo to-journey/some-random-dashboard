@@ -20,7 +20,7 @@ const LoginForm: React.FC = () => {
   })
 
   const onSubmit: SubmitHandler<Inputs> = () => {
-    router.push("/dashboard")
+    router.push("/dashboard/users")
   }
 
   return (
@@ -34,6 +34,7 @@ const LoginForm: React.FC = () => {
           variant="outlined"
           margin="normal"
           fullWidth
+          autoComplete="email"
           {...register("email", {
             required: "Email is required",
             pattern: {
@@ -49,6 +50,7 @@ const LoginForm: React.FC = () => {
           margin="normal"
           fullWidth
           type="password"
+          autoComplete="current-password"
           {...register("password", {
             required: "Password is required",
             minLength: {

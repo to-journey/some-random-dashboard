@@ -93,28 +93,26 @@ const CreateUser = () => {
     const newUser = {
       ...formData,
       id: crypto.randomUUID(),
+      newsletterSubscription: formData.newsletterSubscription ? "Subscribed" : "Not Subscribed",
       dateOfBirth: formData.dateOfBirth ? formData.dateOfBirth.toDate() : null,
       contactMethod: Object.entries(formData.contactMethod)
         .filter(([, checked]) => checked)
         .map(([method]) => {
-          // Split the method into words
           return method
             .split(" ")
             .map(word => {
-              // Check if the word is "SMS" and return it in uppercase
               if (word.toUpperCase() === "SMS") {
                 return word.toUpperCase()
               }
-              // Capitalize the first letter of the word and lowercase the rest
               return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
             })
-            .join(" ") // Join the words back into a single string
+            .join(" ")
         }),
     }
 
     usersContext.setUsers([...usersContext.users, newUser])
 
-    router.push("/dashboard")
+    router.push("/dashboard/users")
   }
 
   const handleResetForm = event => {

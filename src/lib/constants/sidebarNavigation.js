@@ -6,13 +6,13 @@ import LayersIcon from "@mui/icons-material/Layers"
 
 const NAVIGATION = [
   {
-    segment: "dashboard",
+    segment: "dashboard/users",
     title: "User Dashboard",
     icon: <DashboardIcon />,
   },
   {
     segment: "dashboard",
-    title: "Menu 1",
+    title: "Analytics Dashboard",
     icon: <LayersIcon />,
     children: [
       {
@@ -29,7 +29,7 @@ const NAVIGATION = [
   },
   {
     segment: "dashboard",
-    title: "Menu 2",
+    title: "Statistics Dashboard",
     icon: <LayersIcon />,
     children: [
       {
