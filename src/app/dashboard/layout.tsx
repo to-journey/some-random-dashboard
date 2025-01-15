@@ -1,3 +1,4 @@
+"use client"
 import React from "react"
 import { AppProvider } from "@toolpad/core/nextjs"
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter"
