@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useContext, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import { Box } from "@mui/material"
 import {
   DataGrid,
@@ -9,16 +9,19 @@ import {
 import { DataColumns } from "./DataColumns.jsx"
 import { CustomToolbar } from "./CustomToolbar.jsx"
 import Typography from "@mui/material/Typography"
-import { UsersContext } from "@/context/UsersContext.js"
+import { useChatbotMessages } from "../../../hooks/useChatbotMessages.js" // Updated import
 
 const UserDataGrid = () => {
-  const { users, setUsers } = useContext(UsersContext)
-  const [rows, setRows] = useState(users)
+  // Replace UsersContext with ChatbotContext
+  const { messages, loading, error } = useChatbotMessages() // Updated context usage
+  const [rows, setRows] = useState(messages) // Updated state initialization
   const [rowModesModel, setRowModesModel] = useState({})
 
   useEffect(() => {
-    setRows(users)
-  }, [users])
+    setRows(messages) // Update rows when messages change
+    console.log(`messages, ${messages.thread_id}`)
+  }, [messages])
+
 
   const handleRowEditStop = (params, event) => {
     try {
@@ -54,8 +57,10 @@ const UserDataGrid = () => {
   }
 
   const processRowUpdate = newRow => {
-    const updatedUsers = rows.map(row => (row.id === newRow.id ? newRow : row))
-    setUsers(updatedUsers)
+    const updatedMessages = rows.map(row => (row.id === newRow.id ? newRow : row))
+    // If you have a function to update messages in context, use it here
+    // For now, we just update the local state
+    setRows(updatedMessages)
     return newRow
   }
 
@@ -66,6 +71,42 @@ const UserDataGrid = () => {
     handleEditClick,
     handleDeleteClick,
   )
+
+  if (loading) {
+    return (
+      <Box
+        sx={{
+          height: 500,
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "background.paper",
+          borderRadius: 1,
+        }}
+      >
+        <Typography color="text.secondary">Loading...</Typography>
+      </Box>
+    )
+  }
+
+  if (error) {
+    return (
+      <Box
+        sx={{
+          height: 500,
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "background.paper",
+          borderRadius: 1,
+        }}
+      >
+        <Typography color="error">Error: {error}</Typography>
+      </Box>
+    )
+  }
 
   if (rows.length > 0) {
     return (
@@ -109,7 +150,7 @@ const UserDataGrid = () => {
           borderRadius: 1,
         }}
       >
-        <Typography color="text.secondary">No users found</Typography>
+        <Typography color="text.secondary">No messages found</Typography>
       </Box>
     )
   }

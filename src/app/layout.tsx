@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import localFont from "next/font/local"
 import "../styles/globals.css"
 import { Layout, AuthProvider } from "@/components/index"
-import { UsersProvider } from "@/context/UsersProvider"
+import { ChatbotProvider } from "@/context/ChatbotProvider"
 
 const geistSans = localFont({
   src: "../styles/fonts/GeistVF.woff",
@@ -30,9 +30,9 @@ export default function RootLayout({
       >
         <AuthProvider>
           <Layout>
-            <UsersProvider>
+            <ChatbotProvider>
               {children}
-            </UsersProvider>
+            </ChatbotProvider>
           </Layout>
         </AuthProvider>
       </body>
