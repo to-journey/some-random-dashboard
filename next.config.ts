@@ -6,17 +6,8 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
 
-  // Experimental features
-  experimental: {
-    // Enable the App Router (if not already enabled)
-    appDir: true,
-
-    // Specify external packages for Server Components
-    serverComponentsExternalPackages: ["@toolpad/core"],
-
-    // Disable CSR bailout warnings (use with caution)
-    disableClientSideRenderWarning: true,
-  },
+  // Specify external packages for Server Components
+  serverExternalPackages: ["@toolpad/core"],
 }
 
 export default nextConfig
