@@ -12,17 +12,24 @@ import { Button } from "@mui/material"
 import AddIcon from "@mui/icons-material/Add"
 
 export const CustomToolbar = ({ ...props }) => {
-  const router = useRouter()
+  // const router = useRouter()
 
-  const handleClick = () => {
-    router.push("/create-user")
-  }
+  // const handleClick = () => {
+  //   router.push("/create-user")
+  // }
 
   return (
-    <GridToolbarContainer {...props}>
-      <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
+    <GridToolbarContainer
+      {...props}
+      sx={{
+        marginTop: 2, // Add margin to the top
+        paddingTop: 2, // Add padding to the top
+        height: "auto", // Adjust height if needed
+      }}
+    >
+      {/* <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
         Add User
-      </Button>
+      </Button> */}
       <GridToolbarColumnsButton />
       <GridToolbarFilterButton />
       <GridToolbarDensitySelector />

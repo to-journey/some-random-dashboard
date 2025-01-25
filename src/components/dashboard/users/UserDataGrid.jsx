@@ -10,16 +10,23 @@ import { DataColumns } from "./DataColumns.jsx"
 import { CustomToolbar } from "./CustomToolbar.jsx"
 import Typography from "@mui/material/Typography"
 import { useChatbotMessages } from "../../../hooks/useChatbotMessages.js" // Updated import
+import { formatDate } from "../../../lib/utils/utils.js" // Import the utility function
 
 const UserDataGrid = () => {
   // Use the chatbot messages context
   const { messages, loading, error } = useChatbotMessages()
-  const [rows, setRows] = useState(messages) // Initialize rows with messages
-  const [rowModesModel, setRowModesModel] = useState({})
+  const [rows, setRows] = useState([]) // Initialize rows as an empty array
+  const [rowModesModel, setRowModesModel] = useState({}) // Define rowModesModel state
 
-  // Update rows when messages change
+  // Format the messages and update rows when messages change
   useEffect(() => {
-    setRows(messages)
+    if (messages) {
+      const formattedMessages = messages.map(message => ({
+        ...message,
+        created_at: formatDate(message.created_at), // Format the created_at field
+      }))
+      setRows(formattedMessages)
+    }
   }, [messages])
 
   // Handle row edit stop

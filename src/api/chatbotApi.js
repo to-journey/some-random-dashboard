@@ -26,7 +26,19 @@ export const fetchChatbotMessages = async () => {
         select: "*", // Fetch all columns
       },
     })
-    return response.data
+
+    // Transform data to match the table fields
+    const transformedData = response.data.map(message => ({
+      id: message.id,
+      created_at: message.created_at, // Pass the date as-is
+      bot_name: "VRG ASIA", // Hardcoded for now, replace with actual bot name if available
+      thread_id: message.thread_id,
+      user_message: message.user_message || "", // Fallback to empty string if undefined
+      bot_message: message.bot_message || "", // Fallback to empty string if undefined
+      callback: message.callback_spare1 || message.callback_spare2 || "", // Fallback to empty string if undefined
+    }))
+
+    return transformedData
   } catch (error) {
     console.error("Error fetching chatbot messages:", error)
     throw error
