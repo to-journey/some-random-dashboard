@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useEffect } from "react"
-import { Box } from "@mui/material"
+import { Box, MenuItem, Select, Typography } from "@mui/material"
 import {
   DataGrid,
   GridRowEditStopReasons,
@@ -8,7 +8,6 @@ import {
 } from "@mui/x-data-grid"
 import { DataColumns } from "./DataColumns.jsx"
 import { CustomToolbar } from "./CustomToolbar.jsx"
-import Typography from "@mui/material/Typography"
 import { useChatbotMessages } from "../../../hooks/useChatbotMessages.js" // Updated import
 import { formatDate } from "../../../lib/utils/utils.js" // Import the utility function
 
@@ -17,6 +16,7 @@ const UserDataGrid = () => {
   const { messages, loading, error } = useChatbotMessages()
   const [rows, setRows] = useState([]) // Initialize rows as an empty array
   const [rowModesModel, setRowModesModel] = useState({}) // Define rowModesModel state
+  const [timeFilter, setTimeFilter] = useState("all") // State for time filter
 
   // Format the messages and update rows when messages change
   useEffect(() => {
@@ -28,6 +28,30 @@ const UserDataGrid = () => {
       setRows(formattedMessages)
     }
   }, [messages])
+
+  // Handle time filter change
+  const handleTimeFilterChange = event => {
+    setTimeFilter(event.target.value)
+  }
+
+  // Filter rows based on the selected time filter
+  const filteredRows = rows.filter(row => {
+    const rowDate = new Date(row.created_at)
+    const now = new Date()
+
+    switch (timeFilter) {
+      case "today":
+        return rowDate.toDateString() === now.toDateString()
+      case "thisWeek":
+        const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay()))
+        return rowDate >= startOfWeek
+      case "last30Days":
+        const startOf30Days = new Date(now.setDate(now.getDate() - 30))
+        return rowDate >= startOf30Days
+      default:
+        return true // Show all rows if no filter is selected
+    }
+  })
 
   // Handle row edit stop
   const handleRowEditStop = (params, event) => {
@@ -157,8 +181,22 @@ const UserDataGrid = () => {
         },
       }}
     >
+      {/* Time Filter Dropdown */}
+      <Box sx={{ marginBottom: 2 }}>
+        <Select
+          value={timeFilter}
+          onChange={handleTimeFilterChange}
+          sx={{ minWidth: 150 }}
+        >
+          <MenuItem value="all">All</MenuItem>
+          <MenuItem value="today">Today</MenuItem>
+          <MenuItem value="thisWeek">This Week</MenuItem>
+          <MenuItem value="last30Days">Last 30 Days</MenuItem>
+        </Select>
+      </Box>
+
       <DataGrid
-        rows={rows}
+        rows={filteredRows} // Use filtered rows
         columns={columns}
         editMode="row"
         rowModesModel={rowModesModel}
