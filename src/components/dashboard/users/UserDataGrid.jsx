@@ -12,17 +12,17 @@ import Typography from "@mui/material/Typography"
 import { useChatbotMessages } from "../../../hooks/useChatbotMessages.js" // Updated import
 
 const UserDataGrid = () => {
-  // Replace UsersContext with ChatbotContext
-  const { messages, loading, error } = useChatbotMessages() // Updated context usage
-  const [rows, setRows] = useState(messages) // Updated state initialization
+  // Use the chatbot messages context
+  const { messages, loading, error } = useChatbotMessages()
+  const [rows, setRows] = useState(messages) // Initialize rows with messages
   const [rowModesModel, setRowModesModel] = useState({})
 
+  // Update rows when messages change
   useEffect(() => {
-    setRows(messages) // Update rows when messages change
-    console.log(`messages, ${messages.thread_id}`)
+    setRows(messages)
   }, [messages])
 
-
+  // Handle row edit stop
   const handleRowEditStop = (params, event) => {
     try {
       if (params.reason === GridRowEditStopReasons.rowFocusOut) {
@@ -33,18 +33,22 @@ const UserDataGrid = () => {
     }
   }
 
+  // Handle edit click
   const handleEditClick = id => () => {
     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } })
   }
 
+  // Handle save click
   const handleSaveClick = id => () => {
     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } })
   }
 
+  // Handle delete click
   const handleDeleteClick = id => () => {
     setRows(rows.filter(row => row.id !== id))
   }
 
+  // Handle cancel click
   const handleCancelClick = id => () => {
     setRowModesModel({
       ...rowModesModel,
@@ -56,14 +60,16 @@ const UserDataGrid = () => {
     }
   }
 
+  // Process row updates
   const processRowUpdate = newRow => {
-    const updatedMessages = rows.map(row => (row.id === newRow.id ? newRow : row))
-    // If you have a function to update messages in context, use it here
-    // For now, we just update the local state
-    setRows(updatedMessages)
+    const updatedMessages = rows.map(row =>
+      row.id === newRow.id ? newRow : row,
+    )
+    setRows(updatedMessages) // Update local state
     return newRow
   }
 
+  // Define columns using DataColumns
   const columns = DataColumns(
     rowModesModel,
     handleSaveClick,
@@ -72,6 +78,7 @@ const UserDataGrid = () => {
     handleDeleteClick,
   )
 
+  // Loading state
   if (loading) {
     return (
       <Box
@@ -90,6 +97,7 @@ const UserDataGrid = () => {
     )
   }
 
+  // Error state
   if (error) {
     return (
       <Box
@@ -108,36 +116,8 @@ const UserDataGrid = () => {
     )
   }
 
-  if (rows.length > 0) {
-    return (
-      <Box
-        sx={{
-          height: "auto",
-          minHeight: 500,
-          width: "98%",
-          "& .actions": {
-            color: "text.secondary",
-          },
-          "& .textPrimary": {
-            color: "text.primary",
-          },
-        }}
-      >
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          editMode="row"
-          rowModesModel={rowModesModel}
-          onRowModesModelChange={setRowModesModel}
-          onRowEditStop={handleRowEditStop}
-          processRowUpdate={processRowUpdate}
-          slots={{
-            toolbar: CustomToolbar,
-          }}
-        />
-      </Box>
-    )
-  } else {
+  // Empty state
+  if (!messages || messages.length === 0) {
     return (
       <Box
         sx={{
@@ -154,6 +134,36 @@ const UserDataGrid = () => {
       </Box>
     )
   }
+
+  // Render the DataGrid
+  return (
+    <Box
+      sx={{
+        height: "auto",
+        minHeight: 500,
+        width: "98%",
+        "& .actions": {
+          color: "text.secondary",
+        },
+        "& .textPrimary": {
+          color: "text.primary",
+        },
+      }}
+    >
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        editMode="row"
+        rowModesModel={rowModesModel}
+        onRowModesModelChange={setRowModesModel}
+        onRowEditStop={handleRowEditStop}
+        processRowUpdate={processRowUpdate}
+        slots={{
+          toolbar: CustomToolbar,
+        }}
+      />
+    </Box>
+  )
 }
 
 export default UserDataGrid
