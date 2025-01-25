@@ -1,10 +1,22 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Ignore TypeScript build errors
   typescript: {
     ignoreBuildErrors: true,
   },
-};
 
-export default nextConfig;
+  // Experimental features
+  experimental: {
+    // Enable the App Router (if not already enabled)
+    appDir: true,
+
+    // Specify external packages for Server Components
+    serverComponentsExternalPackages: ["@toolpad/core"],
+
+    // Disable CSR bailout warnings (use with caution)
+    disableClientSideRenderWarning: true,
+  },
+}
+
+export default nextConfig
