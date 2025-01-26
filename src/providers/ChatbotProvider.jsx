@@ -9,25 +9,23 @@ export default function ChatbotProvider({ children }) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  // Fetch chatbot messages when the provider mounts
   useEffect(() => {
     const getMessages = async () => {
-      setLoading(true) // Set loading to true
+      setLoading(true)
       try {
-        const data = await fetchChatbotMessages() // Fetch messages
-        setMessages(data) // Update state with fetched messages
-        setError(null) // Clear any previous errors
+        const data = await fetchChatbotMessages()
+        setMessages(data)
+        setError(null)
       } catch (err) {
-        setError(err.message) // Set error message if something goes wrong
+        setError(err.message || "Failed to fetch messages")
       } finally {
-        setLoading(false) // Set loading to false
+        setLoading(false)
       }
     }
 
-    getMessages() // Call the function to fetch messages
+    getMessages()
   }, [])
 
-  // Provide the context value to children
   return (
     <ChatbotContext.Provider value={{ messages, loading, error }}>
       {children}

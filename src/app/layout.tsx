@@ -1,8 +1,10 @@
 import type { Metadata } from "next"
-import { Inter } from "next/font/google" // Import Inter from next/font/google
+import { Inter } from "next/font/google"
 import "../styles/globals.css"
 import { Layout } from "@/components/index"
 import Providers from "@/providers/Providers"
+import NextAppProviderWrapper from "../providers/NextAppProvider"
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter"
 
 // Load the Inter font with specific weights and subsets
 const inter = Inter({
@@ -22,9 +24,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body className="antialiased">
-        <Providers>
-          <Layout>{children}</Layout>
-        </Providers>
+        <AppRouterCacheProvider options={{ enableCssLayer: true }}>
+          <NextAppProviderWrapper>
+            <Providers>
+              <Layout>{children}</Layout>
+            </Providers>
+          </NextAppProviderWrapper>
+        </AppRouterCacheProvider>
       </body>
     </html>
   )

@@ -1,4 +1,5 @@
 "use client"
+
 import React, { useState, useEffect } from "react"
 import { Box, MenuItem, Select, Typography } from "@mui/material"
 import {
@@ -8,11 +9,10 @@ import {
 } from "@mui/x-data-grid"
 import { DataColumns } from "./DataColumns.jsx"
 import { CustomToolbar } from "./CustomToolbar.jsx"
-import { useChatbotMessages } from "../../../hooks/useChatbotMessages.js" // Updated import
-import { formatDate } from "../../../utils/utils.js" // Import the utility function
+import { useChatbotMessages } from "../../../hooks/useChatbotMessages.js"
+import { formatDate } from "../../../utils/utils.js"
 
 const UserDataGrid = () => {
-  // Use the chatbot messages context
   const { messages, loading, error } = useChatbotMessages()
   const [rows, setRows] = useState([]) // Initialize rows as an empty array
   const [rowModesModel, setRowModesModel] = useState({}) // Define rowModesModel state
@@ -188,7 +188,7 @@ const UserDataGrid = () => {
           onChange={handleTimeFilterChange}
           sx={{ minWidth: 150 }}
         >
-          <MenuItem value="all">All</MenuItem>
+          <MenuItem value="all">All Time</MenuItem>
           <MenuItem value="today">Today</MenuItem>
           <MenuItem value="thisWeek">This Week</MenuItem>
           <MenuItem value="last30Days">Last 30 Days</MenuItem>
