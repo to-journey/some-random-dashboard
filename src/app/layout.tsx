@@ -1,40 +1,30 @@
 import type { Metadata } from "next"
-import localFont from "next/font/local"
+import { Inter } from "next/font/google" // Import Inter from next/font/google
 import "../styles/globals.css"
-import { Layout, AuthProvider } from "@/components/index"
-import { ChatbotProvider } from "@/context/ChatbotProvider"
+import { Layout } from "@/components/index"
+import Providers from "@/providers/Providers"
 
-const geistSans = localFont({
-  src: "../styles/fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-})
-const geistMono = localFont({
-  src: "../styles/fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+// Load the Inter font with specific weights and subsets
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-inter",
 })
 
 export const metadata: Metadata = {
-  title: "User dashboard UI",
-  description: "Next.js app",
+  title: "b2blead",
+  description: "Analytics dashboard",
 }
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <AuthProvider>
-          <Layout>
-            <ChatbotProvider>
-              {children}
-            </ChatbotProvider>
-          </Layout>
-        </AuthProvider>
+    <html lang="en" className={inter.variable}>
+      <body className="antialiased">
+        <Providers>
+          <Layout>{children}</Layout>
+        </Providers>
       </body>
     </html>
   )

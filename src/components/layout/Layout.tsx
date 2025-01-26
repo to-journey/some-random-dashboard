@@ -1,7 +1,7 @@
 "use client"
 import React from "react"
 import { Header, Footer } from "@/components/index"
-import { LayoutProps } from "@/lib/types/layout"
+import { LayoutProps } from "src/types/layout"
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (

@@ -1,13 +1,13 @@
 "use client"
 
 import React, { useState, useEffect } from "react"
-import { ChatbotContext } from "./ChatbotContext"
-import { fetchChatbotMessages } from "../api/chatbotApi" // Import the fetch function
+import { ChatbotContext } from "../context/ChatbotContext"
+import { fetchChatbotMessages } from "../api/chatbotApi"
 
-export const ChatbotProvider = ({ children }) => {
-  const [messages, setMessages] = useState([]) // State for chatbot messages
-  const [loading, setLoading] = useState(false) // State for loading
-  const [error, setError] = useState(null) // State for errors
+export default function ChatbotProvider({ children }) {
+  const [messages, setMessages] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
 
   // Fetch chatbot messages when the provider mounts
   useEffect(() => {

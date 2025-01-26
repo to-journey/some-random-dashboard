@@ -9,7 +9,7 @@ import {
 import { DataColumns } from "./DataColumns.jsx"
 import { CustomToolbar } from "./CustomToolbar.jsx"
 import { useChatbotMessages } from "../../../hooks/useChatbotMessages.js" // Updated import
-import { formatDate } from "../../../lib/utils/utils.js" // Import the utility function
+import { formatDate } from "../../../utils/utils.js" // Import the utility function
 
 const UserDataGrid = () => {
   // Use the chatbot messages context
