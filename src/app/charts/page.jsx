@@ -2,7 +2,11 @@ import React from "react"
 import { Charts } from "../../components/index.js"
 
 const ChartsPage = () => {
-  return <Charts />
+  return (
+    <>
+      <Charts />
+    </>
+  )
 }
 
 export default ChartsPage

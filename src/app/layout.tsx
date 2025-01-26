@@ -3,7 +3,7 @@ import { Inter } from "next/font/google"
 import "../styles/globals.css"
 import { Layout } from "@/components/index"
 import Providers from "@/providers/Providers"
-import NextAppProviderWrapper from "../providers/NextAppProvider"
+import NextAppProviderWrapper from "@/providers/NextAppProviderWrapper"
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter"
 
 // Load the Inter font with specific weights and subsets

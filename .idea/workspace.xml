@@ -5,23 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="75415b62-89c7-4088-8a9c-87de716d6c5d" name="Changes" comment="feat(CreateUser): add buttons: Back, Clear, Submit">
-      <change afterPath="$PROJECT_DIR$/src/providers/NextAppProvider.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/charts/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/charts/page.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/dashboard/chart/page.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/dashboard/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/dashboard/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/dashboard/sales/page.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/dashboard/stats/page.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/dashboard/traffic/page.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/dashboard/users/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/dashboard/users/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/chatbotApi.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/chatbotApi.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/users/UserDataGrid.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/users/UserDataGrid.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/context/ChatbotContext.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/ChatbotContext.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hooks/useChatbotMessages.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useChatbotMessages.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/providers/ChatbotProvider.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/providers/ChatbotProvider.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/providers/NextAppProvider.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/providers/NextAppProviderWrapper.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +103,7 @@
       <workItem from="1736210268446" duration="73000" />
       <workItem from="1736210349529" duration="6391000" />
       <workItem from="1736682720382" duration="874000" />
-      <workItem from="1737870827152" duration="10749000" />
+      <workItem from="1737870827152" duration="12383000" />
     </task>
     <task id="LOCAL-00001" summary="feat(ui): add dropdown, calendar, checkbox, inputs">
       <option name="closed" value="true" />

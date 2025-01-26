@@ -1,6 +1,5 @@
 import axios from "axios"
 
-// Access environment variables
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL
 const SUPABASE_APIKEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
@@ -18,7 +17,6 @@ export const fetchChatbotMessages = async () => {
   try {
     // Construct the full URL for debugging
     const fullUrl = `${SUPABASE_URL}/rest/v1/chatbot?select=*`
-    console.log("Full URL being hit:", fullUrl) // Log the full URL
 
     // Query the "chatbot" table
     const response = await supabase.get("/chatbot", {
@@ -26,6 +24,11 @@ export const fetchChatbotMessages = async () => {
         select: "*", // Fetch all columns
       },
     })
+
+    // Check if response.data is an array
+    if (!Array.isArray(response.data)) {
+      throw new Error("Invalid response format: Expected an array")
+    }
 
     // Transform data to match the table fields
     const transformedData = response.data.map(message => ({
